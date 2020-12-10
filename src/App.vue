@@ -3,7 +3,15 @@
     TaskManager
   </h1>
   <div class="list-wrapper">
-    <VList header="Список дел" />
+    <VList
+      v-for="list in lists"
+      :key="list.id"
+      :title="list.title"
+      :id="list.id"
+      :cards="list.cards"
+      @delete-card="deleteCard"
+      @add-card="addCard"
+    />
     <VAddButton class="add-column">Добавить еще одну колонку</VAddButton>
   </div>
 </template>
@@ -13,6 +21,39 @@
   import VAddButton from '@/components/VAddButton.vue';
 
   export default {
+    data: () => ({
+      lists: [
+        {
+          id: 0,
+          title: 'Список дел',
+          cards: [
+            {
+              id: 0,
+              value: 'Foo',
+            },
+            {
+              id: 1,
+              value: 'Bar',
+            },
+          ],
+        },
+      ],
+      lastId: 2,
+    }),
+
+    methods: {
+      deleteCard({ listId, cardId }) {
+        const cardIndex = this.lists[listId].cards.findIndex(
+          (v) => v.id == cardId
+        );
+        this.lists[listId].cards.splice(cardIndex, 1);
+      },
+
+      addCard({ listId, value }) {
+        this.lists[listId].cards.push({ id: this.lastId++, value: value });
+      },
+    },
+
     components: {
       VList,
       VAddButton,
@@ -25,7 +66,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: start;
+    align-items: flex-start;
 
     gap: 40px;
   }
@@ -44,6 +85,7 @@
     --aquaDark: #8cd4cb;
     --yellowLight: #f9f3e5;
     --black: #33322e;
+    --peachDark: #f6a89e;
   }
 
   body {

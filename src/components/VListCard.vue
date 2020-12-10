@@ -9,9 +9,25 @@
       tabindex="1"
       src="@/assets/delete.svg"
       alt="Удалить карточку"
+      @keypress.enter.space="deleteCard()"
+      @click="deleteCard()"
     />
   </div>
 </template>
+
+<script>
+  export default {
+    methods: {
+      deleteCard() {
+        this.$emit('delete', this.id);
+      },
+    },
+
+    props: {
+      id: Number,
+    },
+  };
+</script>
 
 <style scoped>
   .list-card {
