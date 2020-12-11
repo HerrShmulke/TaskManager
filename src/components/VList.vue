@@ -4,9 +4,13 @@
       <h2 class="list__header-text">{{ title }}</h2>
     </div>
     <div class="list__body">
-      <VListCard v-for="card in cards" :key="card.id" :id="card.id" @delete="deleteCard">
-        {{ card.value }}
-      </VListCard>
+      <draggable :list="cards" item-key="id" group="list" @change="onChange" class="list__dragable">
+        <template #item="{element}">
+          <VListCard :id="element.id" @delete="deleteCard">
+            {{ element.value }}
+          </VListCard>
+        </template>
+      </draggable>
     </div>
 
     <!-- Footer -->
@@ -53,6 +57,7 @@
 <script>
   import VListCard from '@/components/VListCard.vue';
   import VAddButton from '@/components/VAddButton.vue';
+  import draggable from 'vuedraggable';
 
   export default {
     data: () => ({
@@ -68,6 +73,10 @@
     },
 
     methods: {
+      onChange() {
+        this.$emit('save');
+      },
+
       deleteCard(id) {
         this.$emit('delete-card', { cardId: id, listId: this.id });
       },
@@ -116,6 +125,7 @@
     components: {
       VListCard,
       VAddButton,
+      draggable,
     },
   };
 </script>
@@ -150,6 +160,10 @@
 
   .list__body {
     padding: 16px 25px 34px;
+  }
+
+  .list__dragable {
+    cursor: pointer;
   }
 
   .list__body:empty {

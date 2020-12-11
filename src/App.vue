@@ -11,6 +11,7 @@
       :cards="list.cards"
       @delete-card="deleteCard"
       @add-card="addCard"
+      @save="save"
     />
 
     <div class="add-column">
