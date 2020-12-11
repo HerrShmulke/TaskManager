@@ -64,22 +64,7 @@
       block: true,
       columnTitle: '',
 
-      lists: [
-        {
-          id: 0,
-          title: 'Список дел',
-          cards: [
-            {
-              id: 0,
-              value: 'Foo',
-            },
-            {
-              id: 1,
-              value: 'Bar',
-            },
-          ],
-        },
-      ],
+      lists: [],
     }),
 
     methods: {
