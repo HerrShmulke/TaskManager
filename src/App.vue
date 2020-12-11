@@ -112,7 +112,7 @@
 
       addColumn() {
         if (this.columnTitle !== '') {
-          this.lists.push({ id: this.lastColumnId, title: this.columnTitle, cards: [] });
+          this.lists.push({ id: this.lastColumnId++, title: this.columnTitle, cards: [] });
           this.columnTitle = '';
         }
 
