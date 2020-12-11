@@ -4,17 +4,15 @@
       <h2 class="list__header-text">{{ title }}</h2>
     </div>
     <div class="list__body">
-      <VListCard
-        v-for="card in cards"
-        :key="card.id"
-        :id="card.id"
-        @delete="deleteCard"
-      >
+      <VListCard v-for="card in cards" :key="card.id" :id="card.id" @delete="deleteCard">
         {{ card.value }}
       </VListCard>
     </div>
+
+    <!-- Footer -->
     <div class="list__footer">
       <VAddButton
+        tabindex="0"
         v-show="!isAddCard"
         class="list__add-card"
         @click="addCard()"
@@ -22,11 +20,7 @@
       >
         Добавить новую карточку
       </VAddButton>
-      <div
-        class="list__add-card"
-        v-show="isAddCard"
-        v-click-outside="mouseCancel"
-      >
+      <div class="list__add-card" v-show="isAddCard" v-click-outside="mouseCancel">
         <textarea
           placeholder="Введите заголовок для карточки"
           class="list__textarea"
@@ -34,22 +28,20 @@
           v-model="cardValue"
           @keypress.enter.prevent
           @keypress.enter="sendAddCard"
+          tabindex="0"
         ></textarea>
 
         <div class="list__actions">
-          <VAddButton
-            class="list__button"
-            @click="sendAddCard()"
-            @keypress.enter.space="sendAddCard()"
-          >
+          <VAddButton tabindex="0" class="list__button" @click="sendAddCard()" @keypress.enter.space="sendAddCard()">
             Добавить карточку
           </VAddButton>
           <img
             class="list__cancel"
             role="button"
-            tabindex="1"
+            tabindex="0"
             src="@/assets/delete.svg"
             alt="Отменить добавление карточки"
+            @keypress.enter.space="cancel()"
             @click="cancel()"
           />
         </div>
@@ -93,11 +85,7 @@
       },
 
       mouseCancel(event) {
-        if (
-          this.isAddCard &&
-          !this.block &&
-          document.activeElement.type != 'textarea'
-        ) {
+        if (this.isAddCard && !this.block && document.activeElement.type != 'textarea') {
           this.sendAddCard();
 
           this.block = true;
@@ -107,11 +95,7 @@
       },
 
       cancel(event) {
-        if (
-          this.isAddCard &&
-          !this.block &&
-          document.activeElement.type != 'textarea'
-        ) {
+        if (this.isAddCard && !this.block && document.activeElement.type != 'textarea') {
           this.cardValue = '';
           this.block = true;
           this.isAddCard = false;
@@ -142,7 +126,8 @@
     border: solid 4px var(--black);
     background-color: var(--yellowLight);
     box-shadow: 12px 12px 0px var(--black);
-    width: 280px;
+    min-width: 280px;
+    max-width: 280px;
   }
 
   .list__header {
@@ -211,7 +196,7 @@
     margin-top: 7px;
     display: grid;
     grid-template-columns: 1fr 30px;
-    grid-column-gap: 10px;
+    column-gap: 10px;
     align-items: center;
   }
 

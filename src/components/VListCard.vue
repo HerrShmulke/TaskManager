@@ -6,7 +6,7 @@
     <img
       class="list-card__button"
       role="button"
-      tabindex="1"
+      tabindex="0"
       src="@/assets/delete.svg"
       alt="Удалить карточку"
       @keypress.enter.space="deleteCard()"

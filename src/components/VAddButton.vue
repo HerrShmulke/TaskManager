@@ -1,5 +1,5 @@
 <template>
-  <div role="button" tabindex="1" class="add-button">
+  <div role="button" tabindex="0" class="add-button">
     <slot />
     <img src="@/assets/add.svg" alt="Добавить новую карточку" />
   </div>
@@ -10,7 +10,7 @@
     display: grid;
     font-size: 20px;
     grid-template-columns: 1fr 30px;
-    grid-column-gap: 10px;
+    column-gap: 10px;
     align-items: center;
     cursor: pointer;
   }
